@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 router.get('/table', async (req, res, next) => {
   try {
     const user_id = req.session.userId;
-    const kriterias = (await kriteria.getAll(user_id)).map(e => {
+    const kriterias = (await kriteria.getAll()).map(e => {
       const data = e.dataValues;
       const jenis = data.jenis === 0 ? 'Cost' : 'Benefit';
       return { ...data, jenis };
