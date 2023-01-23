@@ -1,0 +1,29 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <!-- <a
+      id="add"
+      href="/kriteria/form"
+      class="modal-open btn btn-primary btn-round"
+      type="submit"
+      data-placement="bottom"
+      title="Tambah Data"
+    >
+      <i class="h5 bx bxs-file-plus bx-tada bx-flip-horizontal"></i> Add
+    </a> -->
+    <h3>Data Kriteria</h3>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" dism="hide" url="/kriteria/table" width="100%" cellspacing="0"></table>
+  </div>
+</div>
+
+<% const toastSuccess = messages.success %> <% const toastError = messages.error %>
+<script>
+  $(document).ready(function () {
+    const toastSuccess = '<%= toastSuccess %>';
+    const toastError = '<%= toastError %>';
+    console.log(toastError);
+    toastSuccess != '' && notification('success', toastSuccess);
+    toastError != '' && notification('error', toastError);
+  });
+</script>

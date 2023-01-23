@@ -1,0 +1,35 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h3>Tambah Data</h3>
+  </div>
+  <div class="card-body">
+    <form id="form" action="<%=action%>" method="POST">
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="form-group">
+            <label>Nama</label>
+            <input type="text" name="name" class="form-control" placeholder="Name" required value="<%= name%>" />
+          </div>
+        </div>
+
+        <% forms.forEach( (form, i) => { const value = form.value || "" %>
+        <div class="col-md-12 mb-4">
+          <label><%= form.name %></label>
+          <input
+            class="form-control"
+            name="<%= form.id %>"
+            type="number"
+            min="0.001"
+            step="0.001"
+            value="<%= value%>"
+            required
+          />
+        </div>
+        <% })%>
+        <div class="col-md-12 mb-4">
+          <button type="submit" class="btn btn-primary col-md-12">Simpan Data</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <% if(waspas) { %>
+    <a class="btn btn-success" href="/rumus/hitung">Hitung</a>
+    <% } else{ %>
+    <h6>Harap isi data Kriteria dan data Roti minimal 2 Atau Periksa Nilai data Roti Yang masih 0</h6>
+    <% }if(status) { %>
+  </div>
+  <div class="card-body">
+    <h2 class="mx-auto mt-5">Perhitungan Fuzzy</h2>
+    <h5 class="mx-auto mt-4 mb-3">Variabel Pesanan Roti</h5>
+    <%fuzzy.keanggotaan.forEach((anggota,i)=>{ %>
+      <div class="mx-auto mb-5">
+        <div class="mx-3 mb-3"><%= anggota.name %></div>
+        <div class="row mx-5">
+          <div class="col-md-3">Persediaan</div>
+          <li class="col-md-3 ">Sedikit = <%= anggota.persediaan.sedikit %></li>
+          <li class="col-md-3">Sedang = <%= anggota.persediaan.sedang %></li>
+          <li class="col-md-3">Banyak = <%= anggota.persediaan.banyak %></li>
+        </div>
+        <div class="row mx-5">
+          <div class="col-md-3">Pesanan</div>
+          <li class="col-md-3 ">Sedikit = <%= anggota.pesanan.sedikit %></li>
+          <li class="col-md-3">Sedang = <%= anggota.pesanan.sedang %></li>
+          <li class="col-md-3">Banyak = <%= anggota.pesanan.banyak %></li>
+        </div>
+      </div>
+    <% })%>
+
+    <h5>Penentuan fire strength</h5>
+    <%fuzzy.defuzzyfikasi.forEach((defuzzy,i)=>{ %>
+      <div class="mx-auto mb-5">
+        <div class="mx-3 mb-3"><%= defuzzy.name %></div>
+        <div class="mx-4 mb-2">Nilai R</div>
+        <div class="row mx-5 mb-3">
+          <li class="col-md-2 ">R<%=i+1%>.1 = <%= defuzzy.r1 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.2 = <%= defuzzy.r2 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.3 = <%= defuzzy.r3 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.4 = <%= defuzzy.r4 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.5 = <%= defuzzy.r5 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.6 = <%= defuzzy.r6 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.7 = <%= defuzzy.r7 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.8 = <%= defuzzy.r8 %></li>
+          <li class="col-md-2 ">R<%=i+1%>.9 = <%= defuzzy.r9 %></li>
+        </div>
+        <div class="mx-4 mb-2">Nilai Z</div>
+        <div class="row mx-5">
+          <li class="col-md-2 ">Z<%=i+1%>.1 = <%= defuzzy.z1 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.2 = <%= defuzzy.z2 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.3 = <%= defuzzy.z3 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.4 = <%= defuzzy.z4 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.5 = <%= defuzzy.z5 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.6 = <%= defuzzy.z6 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.7 = <%= defuzzy.z7 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.8 = <%= defuzzy.z8 %></li>
+          <li class="col-md-2 ">Z<%=i+1%>.9 = <%= defuzzy.z9 %></li>
+        </div>
+      </div>
+    <% })%>
+    <h5>defuzzyfikasi</h5>
+    <div>
+      <%fuzzy.defuzzyfikasi.forEach((defuzzy,i)=>{ %>
+        <div class="mx-3 mb-2"><%= defuzzy.name %></div>
+        <div class="row">
+          <div class="col-12">
+            \[Z = {<%=defuzzy.res1%> \over <%=defuzzy.res2%>}= <%=defuzzy.res%>\]
+          </div>
+        </div>
+      <% })%>
+    </div>
+
+    <h2 class="mx-auto mt-5">Perhitungan Waspas</h2>
+    <div class="mt-2">$$x=\begin {bmatrix}<%=waspas.matrix1%>\end{bmatrix}$$</div>
+    <h5 class="mx-auto mt-2">Normalisasi Terhadap Matrix x</h5>
+    <%waspas.perhitungan.forEach((perhitungan,i)=>{ %>
+    <div class="row mb-5">
+      <%perhitungan.matrix.forEach((matrix,j)=>{ %>
+      <div class="col-md-3 col-sm-12">
+        \[A_{<%=j+1%><%=i+1%>} = {<%=matrix%> \over <%=perhitungan.sumbuX%>}= <%=perhitungan.normalisasi[j]%>\]
+      </div>
+      <% })%>
+    </div>
+    <% })%>
+    <h5 class="mx-auto mt-2">Hasil Normalisasi Matrix x Maka diperoleh Matrix xij</h5>
+    <div class="mt-2">$$x=\begin {bmatrix}<%=waspas.matrix2%>\end{bmatrix}$$</div>
+    <h5 class="mx-auto mt-2">Mengoptimalkan Atribut Dengan Mengalikan Terhadap Bobot Dari Setiap Kriteria</h5>
+    <div>
+      <!-- \[qx=0.5*((x_{11}*bobot)+(x_{21}*bobot)+(x_{31}*bobot)+(x_{41}*bobot)+(x_{51}*bobot)+(x_{61}*bobot)+(x_{71}*bobot))\]
+    \[qy=0.5*((x_{11}^{bobot})+(x_{21}^{bobot})+(x_{31}^{bobot})+(x_{41}^{bobot})+(x_{51}^{bobot})+(x_{61}^{bobot})+(x_{71}^{bobot}))\]
+    \[Q= qx+qy\] -->
+    </div>
+    <div class="row">
+      <% waspas.hasil.forEach((hasil,i) => { %>
+      <div class="col col-md-3">\[Q<%=i+1%>= <%= hasil.q1%> + <%= hasil.q2%> =<%= hasil.q%> \]</div>
+      <%}) %>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <h5>Maka diperoleh Hasil Nilai Optimasi Pada Tabel Berikut</h5>
+      <div class="col col-md-6">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Nama</th>
+              <th scope="col">Y</th>
+              <th scope="col">Rangking</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%waspas.hasil.forEach((hasil,i)=>{ %>
+            <tr>
+              <td><%= hasil.name%></td>
+              <td><%= hasil.q%></td>
+              <td><%= i+1%></td>
+            </tr>
+            <%}) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } %> <% const toastSuccess = messages.success %> <% const toastError = messages.error %>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  $(document).ready(function () {
+    const toastSuccess = '<%= toastSuccess %>';
+    const toastError = '<%= toastError %>';
+    toastSuccess != '' && notification('success', toastSuccess);
+    toastError != '' && notification('error', toastError);
+  });
+</script>
