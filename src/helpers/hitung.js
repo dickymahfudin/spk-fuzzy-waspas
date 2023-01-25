@@ -8,20 +8,20 @@ const hitung = (breads, kriteria) => {
       sumbu3 = 75,
       sumbu4 = 100;
     const sedikit = x => {
-      if (x >= sumbu0 && x <= sumbu1) return (x - sumbu0) / (sumbu1 - sumbu0);
-      else if (x >= sumbu1 && x <= sumbu2) return (sumbu2 - x) / (sumbu2 - sumbu1);
+      if (x >= sumbu0 && x <= sumbu1) return +((x - sumbu0) / (sumbu1 - sumbu0)).toFixed(2);
+      else if (x >= sumbu1 && x <= sumbu2) return +((sumbu2 - x) / (sumbu2 - sumbu1)).toFixed(2);
       else if (x <= sumbu0 || x >= sumbu2) return 0;
       else if (x == sumbu1) return 1;
     };
     const sedang = x => {
-      if (x >= sumbu1 && x <= sumbu2) return (x - sumbu1) / (sumbu2 - sumbu1);
-      else if (x >= sumbu2 && x <= sumbu3) return (sumbu3 - x) / (sumbu3 - sumbu2);
+      if (x >= sumbu1 && x <= sumbu2) return +((x - sumbu1) / (sumbu2 - sumbu1)).toFixed(2);
+      else if (x >= sumbu2 && x <= sumbu3) return +((sumbu3 - x) / (sumbu3 - sumbu2)).toFixed(2);
       else if (x <= sumbu1 || x >= sumbu3) return 0;
       else if (x == sumbu2) return 1;
     };
     const banyak = x => {
-      if (x >= sumbu2 && x <= sumbu3) return (x - sumbu2) / (sumbu3 - sumbu2);
-      else if (x >= sumbu3 && x <= sumbu4) return (sumbu4 - x) / (sumbu4 - sumbu3);
+      if (x >= sumbu2 && x <= sumbu3) return +((x - sumbu2) / (sumbu3 - sumbu2)).toFixed(2);
+      else if (x >= sumbu3 && x <= sumbu4) return +((sumbu4 - x) / (sumbu4 - sumbu3)).toFixed(2);
       else if (x <= sumbu2 || x >= sumbu3) return 0;
       else if (x == sumbu3) return 1;
     };
@@ -134,7 +134,7 @@ const hitung = (breads, kriteria) => {
       const lokasi = datas[i];
       const q1 = +(0.5 * matrix.map(e => e.q1).reduce(reducer)).toFixed(2);
       const q2 = +(0.5 * matrix.map(e => e.q2).reduce(reducer)).toFixed(2);
-      const q = q1 + q2;
+      const q = +(q1 + q2).toFixed(2);
       return { id: lokasi.id, name: lokasi.name, q1, q2, q };
     });
     hasil.sort((a, b) => b.q - a.q);

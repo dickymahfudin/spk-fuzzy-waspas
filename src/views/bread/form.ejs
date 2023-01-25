@@ -16,6 +16,7 @@
         <div class="col-md-12 mb-4">
           <label><%= form.name %></label>
           <input
+            id="<%= form.name %>"
             class="form-control"
             name="<%= form.id %>"
             type="number"
@@ -33,3 +34,10 @@
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#Persediaan').attr('max', 99);
+    $('#Pesanan').attr('max', 99);
+  });
+</script>
