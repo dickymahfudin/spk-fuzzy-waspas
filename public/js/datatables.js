@@ -9,6 +9,10 @@ $(document).ready(function () {
     dataType: 'json',
     success: function (response) {
       if (!dism) {
+        if (parsUrl == 'bread') {
+          const clm = response.columns;
+          response.columns = [clm[0], clm[1], clm[2], clm[4], clm[5], clm[3]];
+        }
         response.columns.push({
           data: 'id',
           title: '',
@@ -22,9 +26,6 @@ $(document).ready(function () {
               `;
           },
         });
-      }
-      if (parsUrl == 'bread') {
-        console.log(response.columns);
       }
 
       const a = $('#dataTable').DataTable({
