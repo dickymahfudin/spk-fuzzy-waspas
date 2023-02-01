@@ -23,11 +23,15 @@ $(document).ready(function () {
           },
         });
       }
+      if (parsUrl == 'bread') {
+        console.log(response.columns);
+      }
 
-      $('#dataTable').DataTable({
+      const a = $('#dataTable').DataTable({
         rowReorder: {
           selector: 'td:nth-child(2)',
         },
+        colReorder: true,
         processing: true,
         retrieve: true,
         responsive: true,
@@ -44,6 +48,7 @@ $(document).ready(function () {
         data: response.data,
         columns: response.columns,
       });
+      a.colReorder.move(0, 1);
     },
   });
 });
