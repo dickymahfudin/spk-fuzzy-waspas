@@ -1,11 +1,10 @@
 const models = require('../models');
-const moment = require('moment');
 
 const criterias = async () => {
   const createdAt = new Date();
   const updatedAt = new Date();
-  const tglProduksi1 = moment('2023-01-23');
-  const tglProduksi2 = moment('2023-01-24');
+  const tglProduksi1 = '2023-01-23';
+  const tglProduksi2 = '2023-01-24';
 
   const dataBreads = [
     { name: 'Roti Unyil Coklat', result: 1.58, tgl_produksi: tglProduksi1 },

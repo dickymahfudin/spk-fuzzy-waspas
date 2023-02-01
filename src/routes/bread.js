@@ -4,7 +4,6 @@ const group = require('../helpers/group');
 const jsonToTable = require('../helpers/jsonToTable');
 const dataFormat = require('../helpers/dataFormat');
 const { bread, kriteria, link } = require('../models');
-const moment = require('moment');
 
 router.get('/', async (req, res, next) => {
   let date = '2023-01-23';
@@ -42,7 +41,7 @@ router.post('/', async (req, res, next) => {
     req.flash('error', 'Nama Roti Sudah tersedia');
     return res.redirect('/bread');
   }
-  const location = await bread.create({ name: data.name, tgl_produksi: moment(data.date) });
+  const location = await bread.create({ name: data.name, tgl_produksi: data.date });
   for (const value of Object.keys(data)) {
     if (value != 'name' && value != 'alamat' && value != 'date') {
       await link.create({
@@ -61,7 +60,7 @@ router.post('/:id', async (req, res, next) => {
   const { id } = req.params;
   const tempbread = await bread.findOne({ where: { id }, raw: true, nest: true });
   if (tempbread) {
-    bread.update({ name: data.name, tgl_produksi: moment(data.date) }, { where: { id } });
+    bread.update({ name: data.name, tgl_produksi: data.date }, { where: { id } });
   }
   for (const value of Object.keys(data)) {
     if (value != 'name' && value != 'date') {
@@ -114,7 +113,7 @@ router.get('/form/:id', async (req, res, next) => {
     const find = tempForms.find(asli => asli.kriteria_id == kriteria.id) || '';
     return { ...passkriteria, value: find.value };
   });
-  const tgl = moment(tempForms[0]['bread']['tgl_produksi']).format('YYYY-MM-DD');
+  const tgl = tempForms[0]['bread']['tgl_produksi'].format('YYYY-MM-DD');
   return res.render('bread/form', {
     action: `/bread/${id}`,
     forms,

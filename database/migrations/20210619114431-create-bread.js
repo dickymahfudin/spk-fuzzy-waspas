@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING(300),
       },
       tgl_produksi: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       result: {
         type: Sequelize.FLOAT,

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       result: DataTypes.FLOAT,
-      tgl_produksi: DataTypes.DATE,
+      tgl_produksi: DataTypes.STRING,
     },
     {
       sequelize,

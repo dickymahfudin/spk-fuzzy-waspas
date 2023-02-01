@@ -21,7 +21,6 @@ router.get('/', async (req, res, next) => {
       waspas = hitungs.waspas;
       fuzzy = hitungs.fuzzy;
     }
-    console.log(waspas.matrix1);
     if (!waspas || !fuzzy) status = false;
     return res.render('rumus', { title: 'Rumus', waspas, fuzzy, status, date });
   } catch (error) {
@@ -32,7 +31,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/hitung', async (req, res, next) => {
-  const date = req.query.date;
+  let date = '2023-01-23';
+  if (req.query.date) date = req.query.date;
   try {
     const locations = await link.getAll([], date);
     const kriterias = await kriteria.getAll();
