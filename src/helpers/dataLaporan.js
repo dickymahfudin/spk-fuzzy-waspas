@@ -96,7 +96,6 @@ const criterias = async () => {
   ];
   const kriterias = await models.kriteria.findAll();
   const breads = await models.bread.bulkCreate(dataBreads);
-  console.log(breads);
 
   for (const i in breads) {
     if (Object.hasOwnProperty.call(breads, i)) {

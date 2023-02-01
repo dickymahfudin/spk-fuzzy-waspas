@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       const exclude = ['password', 'createdAt', 'updatedAt'];
       if (date)
         date = {
-          tgl_produksi: moment(date),
+          tgl_produksi: date,
         };
       return await this.findAll({
         where,
