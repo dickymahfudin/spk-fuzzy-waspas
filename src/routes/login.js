@@ -13,7 +13,6 @@ router.post('/', async (req, res, next) => {
   const { username, password } = req.body;
   const tempUser = await user.findOne({ where: { username } });
   if (!tempUser) {
-    console.log('masuk');
     req.flash('error', 'Username atau Password Salah');
     return res.redirect('/login');
   }

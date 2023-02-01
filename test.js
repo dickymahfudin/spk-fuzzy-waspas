@@ -1,47 +1,79 @@
+const moment = require('moment');
 const dataBeads = [
-  { id: 41, name: 'Roti Unyil Coklat', Persediaan: 49, Pesanan: 90, Income: 54000 },
-  { id: 42, name: 'Roti Unyil Keju', Persediaan: 106, Pesanan: 10, Income: 6000 },
-  { id: 43, name: 'Roti Unyil Jagung Manis', Persediaan: 45, Pesanan: 60, Income: 36000 },
-  { id: 44, name: 'Roti Sari rasa Korean Garlic', Persediaan: 30, Pesanan: 80, Income: 200000 },
-  { id: 45, name: 'Roti Sari rasa Coffee Bun', Persediaan: 60, Pesanan: 40, Income: 100000 },
-  { id: 46, name: 'Roti Sari rasa Flower Sausage Bread', Persediaan: 80, Pesanan: 25, Income: 62000 },
-  { id: 47, name: 'Roti Bantal', Persediaan: 35, Pesanan: 20, Income: 80000 },
-  { id: 48, name: 'Roti Sobek', Persediaan: 50, Pesanan: 25, Income: 100000 },
-  { id: 49, name: 'Roti Sisir', Persediaan: 40, Pesanan: 25, Income: 100000 },
-  { id: 50, name: 'Roti Tawar', Persediaan: 40, Pesanan: 30, Income: 120000 },
+  { id: 1, name: 'Roti Unyil Coklat', Persediaan: 270, Pesanan: 350 },
+  { id: 2, name: 'Roti Unyil Keju', Persediaan: 180, Pesanan: 300 },
+  { id: 3, name: 'Roti Unyil Cokelat Keju', Persediaan: 150, Pesanan: 150 },
+  { id: 4, name: 'Roti Unyil Jagung Manis', Persediaan: 120, Pesanan: 150 },
+  { id: 5, name: 'Roti Unyil Oreo', Persediaan: 150, Pesanan: 200 },
+  { id: 6, name: 'Roti Unyil Durian', Persediaan: 120, Pesanan: 100 },
+  { id: 7, name: 'Roti Unyil Pisang Cokelat', Persediaan: 150, Pesanan: 155 },
+  { id: 8, name: 'Roti Unyil Pisang Keju', Persediaan: 180, Pesanan: 175 },
+  { id: 9, name: 'Roti Unyil Sosis', Persediaan: 210, Pesanan: 125 },
+  { id: 10, name: 'Roti Unyil Abon', Persediaan: 150, Pesanan: 170 },
+  { id: 11, name: 'Roti Unyil Cream Cheese', Persediaan: 240, Pesanan: 200 },
+  { id: 12, name: 'Roti Unyil Daging Asap', Persediaan: 180, Pesanan: 450 },
+  { id: 13, name: 'Roti Unyil Mocca Cokelat', Persediaan: 150, Pesanan: 200 },
+  { id: 14, name: 'Roti Besar Korean Garlic', Persediaan: 200, Pesanan: 100 },
+  { id: 15, name: 'Roti Besar Coffee Bun', Persediaan: 261, Pesanan: 110 },
+  { id: 16, name: 'Roti Besar Abon', Persediaan: 360, Pesanan: 270 },
+  { id: 17, name: 'Roti Besar Cream Cheese', Persediaan: 405, Pesanan: 432 },
+  { id: 18, name: 'Roti Besar Sosis', Persediaan: 234, Pesanan: 495 },
+  { id: 19, name: 'Roti Besar Flower Sausage Bread', Persediaan: 414, Pesanan: 189 },
+  { id: 20, name: 'Roti Besar Naugat Kacang', Persediaan: 261, Pesanan: 100 },
+];
+let dataBeads1 = [
+  { id: 1, name: 'Roti Unyil Coklat', Persediaan: 107, Pesanan: 210 },
+  { id: 2, name: 'Roti Unyil Keju', Persediaan: 116, Pesanan: 140 },
+  { id: 3, name: 'Roti Unyil Cokelat Keju', Persediaan: 166, Pesanan: 122 },
+  { id: 4, name: 'Roti Unyil Jagung Manis', Persediaan: 138, Pesanan: 148 },
+  { id: 5, name: 'Roti Unyil Oreo', Persediaan: 116, Pesanan: 340 },
+  { id: 6, name: 'Roti Unyil Durian', Persediaan: 120, Pesanan: 300 },
+  { id: 7, name: 'Roti Unyil Pisang Cokelat', Persediaan: 161, Pesanan: 250 },
+  { id: 8, name: 'Roti Unyil Pisang Keju', Persediaan: 169, Pesanan: 110 },
+  { id: 9, name: 'Roti Unyil Sosis', Persediaan: 138, Pesanan: 431 },
+  { id: 10, name: 'Roti Unyil Abon', Persediaan: 146, Pesanan: 234 },
+  { id: 11, name: 'Roti Unyil Cream Cheese', Persediaan: 190, Pesanan: 179 },
+  { id: 12, name: 'Roti Unyil Daging Asap', Persediaan: 105, Pesanan: 220 },
+  { id: 13, name: 'Roti Unyil Mocca Cokelat', Persediaan: 116, Pesanan: 410 },
+  { id: 14, name: 'Roti Besar Korean Garlic', Persediaan: 200, Pesanan: 230 },
+  { id: 15, name: 'Roti Besar Coffee Bun', Persediaan: 193, Pesanan: 300 },
+  { id: 16, name: 'Roti Besar Abon', Persediaan: 115, Pesanan: 320 },
+  { id: 17, name: 'Roti Besar Cream Cheese', Persediaan: 109, Pesanan: 220 },
+  { id: 18, name: 'Roti Besar Sosis', Persediaan: 103, Pesanan: 345 },
+  { id: 19, name: 'Roti Besar Flower Sausage Bread', Persediaan: 226, Pesanan: 243 },
+  { id: 20, name: 'Roti Besar Naugat Kacang', Persediaan: 161, Pesanan: 240 },
 ];
 
 const dataKriteria = [
-  { name: 'Persediaan', bobot: 0.1, jenis: 1 },
-  { name: 'Pesanan', bobot: 0.3, jenis: 1 },
-  { name: 'Income', bobot: 0.3, jenis: 1 },
-  { name: 'Produksi', bobot: 0.3, jenis: 1 },
+  { name: 'Persediaan', bobot: 0.2, jenis: 1 },
+  { name: 'Pesanan', bobot: 0.4, jenis: 1 },
+  { name: 'Produksi', bobot: 0.4, jenis: 1 },
 ];
 
 const hitung = (breads, kriteria) => {
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
   const fuzzy = datas => {
-    const sumbu0 = 0,
-      sumbu1 = 25,
-      sumbu2 = 50,
-      sumbu3 = 75,
-      sumbu4 = 100;
+    const sumbu0 = 100,
+      sumbu1 = 200,
+      sumbu2 = 300,
+      sumbu3 = 400,
+      sumbu4 = 500;
     const sedikit = x => {
-      if (x >= sumbu0 && x <= sumbu1) return (x - sumbu0) / (sumbu1 - sumbu0);
-      else if (x >= sumbu1 && x <= sumbu2) return (sumbu2 - x) / (sumbu2 - sumbu1);
+      if (x >= sumbu0 && x <= sumbu1) return +((x - sumbu0) / (sumbu1 - sumbu0)).toFixed(2);
+      else if (x >= sumbu1 && x <= sumbu2) return +((sumbu2 - x) / (sumbu2 - sumbu1)).toFixed(2);
       else if (x <= sumbu0 || x >= sumbu2) return 0;
       else if (x == sumbu1) return 1;
     };
     const sedang = x => {
-      if (x >= sumbu1 && x <= sumbu2) return (x - sumbu1) / (sumbu2 - sumbu1);
-      else if (x >= sumbu2 && x <= sumbu3) return (sumbu3 - x) / (sumbu3 - sumbu2);
+      if (x >= sumbu1 && x <= sumbu2) return +((x - sumbu1) / (sumbu2 - sumbu1)).toFixed(2);
+      else if (x >= sumbu2 && x <= sumbu3) return +((sumbu3 - x) / (sumbu3 - sumbu2)).toFixed(2);
       else if (x <= sumbu1 || x >= sumbu3) return 0;
       else if (x == sumbu2) return 1;
     };
     const banyak = x => {
-      if (x >= sumbu2 && x <= sumbu3) return (x - sumbu2) / (sumbu3 - sumbu2);
-      else if (x >= sumbu3 && x <= sumbu4) return (sumbu4 - x) / (sumbu4 - sumbu3);
+      if (x >= sumbu2 && x <= sumbu3) return +((x - sumbu2) / (sumbu3 - sumbu2)).toFixed(2);
+      else if (x >= sumbu3 && x <= sumbu4) return +((sumbu4 - x) / (sumbu4 - sumbu3)).toFixed(2);
       else if (x <= sumbu2 || x >= sumbu3) return 0;
       else if (x == sumbu3) return 1;
     };
@@ -50,25 +82,47 @@ const hitung = (breads, kriteria) => {
       return datas.map(data => {
         const id = data.id;
         const name = data.name;
+        const rr1 = 10,
+          rr2 = 10,
+          rr3 = 70,
+          rr4 = 10,
+          rr5 = 50,
+          rr6 = 200,
+          rr7 = 70,
+          rr8 = 170,
+          rr9 = 350;
 
-        const r1 = Math.min(data.persediaan.banyak, data.pesanan.sedikit);
-        const z1 = r1 > 0 ? +(10 - r1 * 9).toFixed(2) : 0;
-        const r2 = Math.min(data.persediaan.sedang, data.pesanan.sedikit);
-        const z2 = r2 > 0 ? +(10 + r2 * 9).toFixed(2) : 0;
-        const r3 = Math.min(data.persediaan.sedikit, data.pesanan.sedikit);
-        const z3 = r3 > 0 ? +(45 - r3 * 10).toFixed(2) : 0;
-        const r4 = Math.min(data.persediaan.banyak, data.pesanan.sedang);
-        const z4 = r4 > 0 ? +(45 + r4 * 10).toFixed(2) : 0;
-        const r5 = Math.min(data.persediaan.sedang, data.pesanan.sedang);
-        const z5 = r5 > 0 ? +(10 - r5 * 9).toFixed(2) : 0;
-        const r6 = Math.min(data.persediaan.sedikit, data.pesanan.sedang);
-        const z6 = r6 > 0 ? +(45 + r6 * 25).toFixed(2) : 0;
-        const r7 = Math.min(data.persediaan.banyak, data.pesanan.banyak);
-        const z7 = r7 > 0 ? +(45 - r7 * 10).toFixed(2) : 0;
-        const r8 = Math.min(data.persediaan.sedang, data.pesanan.banyak);
-        const z8 = r8 > 0 ? +(45 + r8 * 25).toFixed(2) : 0;
-        const r9 = Math.min(data.persediaan.sedikit, data.pesanan.banyak);
-        const z9 = r9 > 0 ? +(75 + r9 * 25).toFixed(2) : 0;
+        const rrr1 = 10,
+          rrr2 = 45,
+          rrr3 = 8,
+          rrr4 = 35,
+          rrr5 = 45,
+          rrr6 = 45,
+          rrr7 = 50,
+          rrr8 = 105,
+          rrr9 = 50;
+
+        const sedikit = r => 100 - r * 5;
+        const Zsedang = r => 100 - r * 5;
+
+        const r1 = Math.min(data.persediaan.banyak, data.pesanan.sedikit); //sedikit
+        const z1 = r1 > 0 ? +(rr1 - r1 * rrr1).toFixed(2) : 0;
+        const r2 = Math.min(data.persediaan.sedang, data.pesanan.sedikit); //sedikit
+        const z2 = r2 > 0 ? +(rr2 + r2 * rrr2).toFixed(2) : 0;
+        const r3 = Math.min(data.persediaan.sedikit, data.pesanan.sedikit); //sedikit
+        const z3 = r3 > 0 ? +(rr3 - r3 * rrr3).toFixed(2) : 0;
+        const r4 = Math.min(data.persediaan.banyak, data.pesanan.sedang); //sedikit
+        const z4 = r4 > 0 ? +(rr4 + r4 * rrr4).toFixed(2) : 0;
+        const r5 = Math.min(data.persediaan.sedang, data.pesanan.sedang); //sedikit
+        const z5 = r5 > 0 ? +(rr5 - r5 * rrr5).toFixed(2) : 0;
+        const r6 = Math.min(data.persediaan.sedikit, data.pesanan.sedang); //sedang
+        const z6 = r6 > 0 ? +(rr6 + r6 * rrr6).toFixed(2) : 0;
+        const r7 = Math.min(data.persediaan.banyak, data.pesanan.banyak); //sedikit
+        const z7 = r7 > 0 ? +(rr7 - r7 * rrr7).toFixed(2) : 0;
+        const r8 = Math.min(data.persediaan.sedang, data.pesanan.banyak); //sedang
+        const z8 = r8 > 0 ? +(rr8 + r8 * rrr8).toFixed(2) : 0;
+        const r9 = Math.min(data.persediaan.sedikit, data.pesanan.banyak); //banyak
+        const z9 = r9 > 0 ? +(rr9 + r9 * rrr9).toFixed(2) : 0;
 
         let res1 = 0;
         let res2 = 0;
@@ -101,6 +155,8 @@ const hitung = (breads, kriteria) => {
         },
       };
     });
+    // console.log(keanggotaan);
+    // console.log(defuzzyfikasi(keanggotaan));
 
     return {
       keanggotaan,
@@ -131,6 +187,7 @@ const hitung = (breads, kriteria) => {
     const matrix1 = data.map(matrix => {
       return matrix.join('&');
     });
+    // console.log(matrix1);
     const matrixD = kriteria.map(kriteria => {
       return resultNormalisasi(datas, kriteria);
     });
@@ -154,7 +211,7 @@ const hitung = (breads, kriteria) => {
       const lokasi = datas[i];
       const q1 = +(0.5 * matrix.map(e => e.q1).reduce(reducer)).toFixed(2);
       const q2 = +(0.5 * matrix.map(e => e.q2).reduce(reducer)).toFixed(2);
-      const q = q1 + q2;
+      const q = +(q1 + q2).toFixed(2);
       return { id: lokasi.id, name: lokasi.name, q1, q2, q };
     });
     hasil.sort((a, b) => b.q - a.q);
@@ -174,4 +231,6 @@ const hitung = (breads, kriteria) => {
   return { fuzzy: hasilFuzzi, waspas: hasilWaspas, breads };
 };
 
-console.log(hitung(dataBeads, dataKriteria));
+const a = hitung(dataBeads, dataKriteria);
+// const b = hitung(dataBeads1, dataKriteria);
+// console.log(hitung(dataBeads, dataKriteria));

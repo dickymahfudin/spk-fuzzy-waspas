@@ -8,7 +8,37 @@
         <div class="col-md-12 mb-4">
           <div class="form-group">
             <label>Nama</label>
-            <input type="text" name="name" class="form-control" placeholder="Name" required value="<%= name%>" />
+            <!-- <input type="text" name="name" class="form-control" placeholder="Name" required value="<%= name%>" /> -->
+            <select class="form-select" aria-label="name" id="name" name="name">
+              <option selected disabled value>Nama Roti</option>
+              <option value="Roti Unyil Coklat">Roti Unyil Coklat</option>
+              <option value="Roti Unyil Keju">Roti Unyil Keju</option>
+              <option value="Roti Unyil Cokelat Keju">Roti Unyil Cokelat Keju</option>
+              <option value="Roti Unyil Jagung Manis">Roti Unyil Jagung Manis</option>
+              <option value="Roti Unyil Oreo">Roti Unyil Oreo</option>
+              <option value="Roti Unyil Durian">Roti Unyil Durian</option>
+              <option value="Roti Unyil Pisang Cokelat">Roti Unyil Pisang Cokelat</option>
+              <option value="Roti Unyil Pisang Keju">Roti Unyil Pisang Keju</option>
+              <option value="Roti Unyil Sosis">Roti Unyil Sosis</option>
+              <option value="Roti Unyil Abon">Roti Unyil Abon</option>
+              <option value="Roti Unyil Cream Cheese">Roti Unyil Cream Cheese</option>
+              <option value="Roti Unyil Daging Asap">Roti Unyil Daging Asap</option>
+              <option value="Roti Unyil Mocca Cokelat">Roti Unyil Mocca Cokelat</option>
+              <option value="Roti Besar Korean Garlic">Roti Besar Korean Garlic</option>
+              <option value="Roti Besar Coffee Bun">Roti Besar Coffee Bun</option>
+              <option value="Roti Besar Abon">Roti Besar Abon</option>
+              <option value="Roti Besar Cream Cheese">Roti Besar Cream Cheese</option>
+              <option value="Roti Besar Sosis">Roti Besar Sosis</option>
+              <option value="Roti Besar Flower Sausage Bread">Roti Besar Flower Sausage Bread</option>
+              <option value="Roti Besar Naugat Kacang">Roti Besar Naugat Kacang</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+          <div class="form-group">
+            <label>Tanggal</label>
+            <input type="date" name="date" placeholder="dd-mm-yyyy" class="form-control" required value="<%=tgl%>" min="2023-01-23" max="2023-01-24"/>
           </div>
         </div>
 
@@ -20,8 +50,8 @@
             class="form-control"
             name="<%= form.id %>"
             type="number"
-            min="0.001"
-            step="0.001"
+            min="100"
+            max="499"
             value="<%= value%>"
             required
           />
@@ -34,10 +64,3 @@
     </form>
   </div>
 </div>
-
-<script>
-  $(document).ready(function () {
-    $('#Persediaan').attr('max', 99);
-    $('#Pesanan').attr('max', 99);
-  });
-</script>

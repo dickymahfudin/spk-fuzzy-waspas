@@ -1,3 +1,4 @@
+const moment = require('moment');
 const dataFormat = datas => {
   let result = [];
   datas.forEach(data => {
@@ -8,6 +9,7 @@ const dataFormat = datas => {
         ...tempData,
         id: temp.bread_id,
         name: temp.bread.name,
+        tanggal: moment(temp.bread.tgl_produksi).format('DD-MMM-YYYY'),
         [name]: temp.value,
       };
     });

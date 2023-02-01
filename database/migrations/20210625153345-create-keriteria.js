@@ -30,10 +30,9 @@ module.exports = {
     const createdAt = new Date();
     const updatedAt = new Date();
     await queryInterface.bulkInsert('kriterias', [
-      { name: 'Persediaan', bobot: 0.1, jenis: 1, createdAt, updatedAt },
-      { name: 'Pesanan', bobot: 0.3, jenis: 1, createdAt, updatedAt },
-      { name: 'Income', bobot: 0.3, jenis: 1, createdAt, updatedAt },
-      { name: 'Produksi', bobot: 0.3, jenis: 1, createdAt, updatedAt },
+      { name: 'Persediaan', bobot: 0.2, jenis: 1, createdAt, updatedAt },
+      { name: 'Pesanan', bobot: 0.4, jenis: 1, createdAt, updatedAt },
+      { name: 'Produksi', bobot: 0.4, jenis: 1, createdAt, updatedAt },
     ]);
   },
   down: async (queryInterface, Sequelize) => {

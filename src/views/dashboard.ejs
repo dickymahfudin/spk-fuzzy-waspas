@@ -37,6 +37,16 @@
 <% if(status) { %>
 <div class="card shadow mb-4">
   <div class="card-header py-3">
+    <form method="get" id="form">
+      <div class="row">
+        <div class="col-md-4 col-6 col-sm-8">
+          <input type="date" class="form-control" value="<%=date%>" name="date" id="date" min="2023-01-23" max="2023-01-24" placeholder="dd-mm-yyyy">
+        </div>
+        <div class="col-md-4 col-6 col-sm-4">
+          <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+      </div>
+    </form>
     <h3>Rangking</h3>
   </div>
   <div class="card-body">
@@ -58,6 +68,7 @@
         <%})%>
       </tbody>
     </table>
+    <canvas id="myChart" style="width:100%"></canvas>
   </div>
 </div>
 <% } else{ %>
@@ -66,8 +77,25 @@
 <script>
   $(document).ready(function () {
     const toastSuccess = '<%= toastSuccess %>';
+    let waspas = '<%- JSON.stringify(waspas) %>';
     const toastError = '<%= toastError %>';
     toastSuccess != '' && notification('success', toastSuccess);
     toastError != '' && notification('error', toastError);
+    waspas = JSON.parse(waspas);
+    new Chart(
+      document.getElementById('myChart'),
+      {
+        type: 'bar',
+        data: {
+          labels: waspas.map(row => row.name),
+          datasets: [
+            {
+              label: 'Chart Nilai Rangking',
+              data: waspas.map(row => row.result)
+            }
+          ]
+        }
+      }
+    );
   });
 </script>

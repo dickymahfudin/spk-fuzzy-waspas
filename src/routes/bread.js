@@ -4,21 +4,29 @@ const group = require('../helpers/group');
 const jsonToTable = require('../helpers/jsonToTable');
 const dataFormat = require('../helpers/dataFormat');
 const { bread, kriteria, link } = require('../models');
+const moment = require('moment');
 
 router.get('/', async (req, res, next) => {
+  let date = '2023-01-23';
+  if (req.query.date) date = req.query.date;
+  let url = '/bread/table';
+  if (date) url = `${url}?date=${date}`;
   const username = req.session.username;
   const kriterias = await kriteria.getAll();
-  return res.render('bread/index', { title: 'Roti', username, kriterias });
+  return res.render('bread/index', { title: 'Roti', username, kriterias, url, date });
 });
 
 router.get('/table', async (req, res, next) => {
   try {
-    const locations = await link.getAll();
+    let date = '2023-01-23';
+    if (req.query.date) date = req.query.date;
+    const locations = await link.getAll([], date);
     const tempData = group(locations, 'bread_id');
-    const data = dataFormat(tempData);
+    let data = dataFormat(tempData);
+    data = data.reverse();
     return res.status(200).json(jsonToTable(data));
   } catch (error) {
-    return res.json([]);
+    return res.json(error);
   }
 });
 
@@ -27,15 +35,16 @@ router.post('/', async (req, res, next) => {
   const tempLocation = await bread.findOne({
     where: {
       name: data.name,
+      tgl_produksi: data.date,
     },
   });
   if (tempLocation) {
-    req.flash('error', 'Nama Lokasi Tidak Boleh Sama');
+    req.flash('error', 'Nama Roti Sudah tersedia');
     return res.redirect('/bread');
   }
-  const location = await bread.create({ name: data.name, alamat: data.alamat, contact: data.contact });
+  const location = await bread.create({ name: data.name, tgl_produksi: moment(data.date) });
   for (const value of Object.keys(data)) {
-    if (value != 'name' && value != 'alamat' && value != 'contact') {
+    if (value != 'name' && value != 'alamat' && value != 'date') {
       await link.create({
         kriteria_id: value,
         bread_id: location.id,
@@ -44,19 +53,18 @@ router.post('/', async (req, res, next) => {
     }
   }
   req.flash('success', 'Data Berhasil Ditambahkan');
-  return res.redirect('/bread');
+  return res.redirect(`/bread?date=${data.date}`);
 });
 
 router.post('/:id', async (req, res, next) => {
   const data = req.body;
   const { id } = req.params;
   const tempbread = await bread.findOne({ where: { id }, raw: true, nest: true });
-  console.log(tempbread);
   if (tempbread) {
-    bread.update({ name: data.name }, { where: { id } });
+    bread.update({ name: data.name, tgl_produksi: moment(data.date) }, { where: { id } });
   }
   for (const value of Object.keys(data)) {
-    if (value != 'name') {
+    if (value != 'name' && value != 'date') {
       await link.update(
         {
           kriteria_id: value,
@@ -73,7 +81,7 @@ router.post('/:id', async (req, res, next) => {
     }
   }
   req.flash('success', 'Data Berhasil Diubah');
-  return res.redirect('/bread');
+  return res.redirect(`/bread?date=${data.date}`);
 });
 
 router.get('/delete/:id', async (req, res, next) => {
@@ -91,6 +99,7 @@ router.get('/form', async (req, res, next) => {
     action: '/bread',
     forms,
     name: '',
+    tgl: '2023-01-23',
     title: 'Roti',
   });
 });
@@ -105,10 +114,12 @@ router.get('/form/:id', async (req, res, next) => {
     const find = tempForms.find(asli => asli.kriteria_id == kriteria.id) || '';
     return { ...passkriteria, value: find.value };
   });
+  const tgl = moment(tempForms[0]['bread']['tgl_produksi']).format('YYYY-MM-DD');
   return res.render('bread/form', {
     action: `/bread/${id}`,
     forms,
     name,
+    tgl,
     title: 'Roti',
   });
 });

@@ -1,13 +1,23 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <% if(waspas) { %>
+    <form method="get" id="form">
+      <div class="row">
+        <div class="col-md-4 col-6 col-sm-8">
+          <input type="date" class="form-control" value="<%=date%>" name="date" id="date" min="2023-01-23" max="2023-01-24" placeholder="dd-mm-yyyy">
+        </div>
+        <div class="col-md-4 col-6 col-sm-4">
+          <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+      </div>
+    </form>
+    <!-- <% if(waspas) { %>
     <a class="btn btn-success" href="/rumus/hitung">Hitung</a>
     <% } else{ %>
     <h6>Harap isi data Kriteria dan data Roti minimal 2 Atau Periksa Nilai data Roti Yang masih 0</h6>
-    <% }if(status) { %>
+    <% }if(status) { %> -->
   </div>
   <div class="card-body">
-    <h2 class="mx-auto mt-5">Perhitungan Fuzzy</h2>
+    <h2 class="mx-auto">Perhitungan Fuzzy</h2>
     <h5 class="mx-auto mt-4 mb-3">Variabel Pesanan Roti</h5>
     <%fuzzy.keanggotaan.forEach((anggota,i)=>{ %>
       <div class="mx-auto mb-5">

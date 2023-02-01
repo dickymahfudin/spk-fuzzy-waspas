@@ -18,11 +18,13 @@
     />
     <script src="/vendor/jquery/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/Chart.min.css " rel="stylesheet"></link>
 
     <!-- Vendor CSS Files -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"
@@ -57,12 +59,12 @@
             >
           </li>
           <li>
-            <a href="/bread" class="nav-link scrollto <%= title === 'Roti' && 'active' %>"
-              ><i class="bx bx-user"></i> <span>Roti</span></a
-            >
+            <a href="/kriteria" class="nav-link scrollto <%= title === 'Kriteria' && 'active' %>"><i class="bx bx-file"></i> <span>Kriteria</span></a>
           </li>
           <li>
-            <a href="/kriteria" class="nav-link scrollto <%= title === 'Kriteria' && 'active' %>"><i class="bx bx-file"></i> <span>Kriteria</span></a>
+            <a href="/bread" class="nav-link scrollto <%= title === 'Roti' && 'active' %>"
+              ><i class="bx bx-baguette"></i> <span>Roti</span></a
+            >
           </li>
           <li>
             <a href="/rumus" class="nav-link scrollto <%= title === 'Rumus' && 'active' %>""><i class="bx bx-calculator"></i> <span>Rumus</span></a>

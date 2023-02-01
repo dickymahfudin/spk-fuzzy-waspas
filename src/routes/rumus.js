@@ -7,7 +7,9 @@ const { kriteria, link, bread, user } = require('../models');
 
 router.get('/', async (req, res, next) => {
   try {
-    const locations = await link.getAll();
+    let date = '2023-01-23';
+    if (req.query.date) date = req.query.date;
+    const locations = await link.getAll([], date);
     const kriterias = await kriteria.findAll({ raw: true, nest: true });
     let status = true;
 
@@ -19,18 +21,20 @@ router.get('/', async (req, res, next) => {
       waspas = hitungs.waspas;
       fuzzy = hitungs.fuzzy;
     }
+    console.log(waspas.matrix1);
     if (!waspas || !fuzzy) status = false;
-    return res.render('rumus', { title: 'Rumus', waspas, fuzzy, status });
+    return res.render('rumus', { title: 'Rumus', waspas, fuzzy, status, date });
   } catch (error) {
     const status = false;
-    let fuzzy, waspas;
-    return res.render('rumus', { title: 'Rumus', waspas, fuzzy, status });
+    let fuzzy, waspas, date;
+    return res.render('rumus', { title: 'Rumus', waspas, fuzzy, status, date });
   }
 });
 
 router.get('/hitung', async (req, res, next) => {
+  const date = req.query.date;
   try {
-    const locations = await link.getAll();
+    const locations = await link.getAll([], date);
     const kriterias = await kriteria.getAll();
     const produksiKriteria = kriterias.find(el => el.name == 'Produksi');
 
@@ -55,16 +59,16 @@ router.get('/hitung', async (req, res, next) => {
       });
       if (dbError > 1) {
         req.flash('error', 'Perhitungan Gagal Data bread Tidak Boleh Kosong');
-        return res.redirect('/rumus');
+        return res.redirect(`/bread?date=${date}`);
       }
       req.flash('success', 'Perhitungan Berhasil');
-      return res.redirect('/rumus');
+      return res.redirect(`/rumus?date=${date}`);
     }
     req.flash('error', 'Perhitungan Gagal Data bread Tidak Boleh Kosong');
-    return res.redirect('/rumus');
+    return res.redirect(`/bread?date=${date}`);
   } catch (error) {
     req.flash('error', 'Perhitungan Gagal Minimal 2 Data bread dan 2 Data kriteria');
-    return res.redirect('/rumus');
+    return res.redirect(`/bread?date=${date}`);
   }
 });
 

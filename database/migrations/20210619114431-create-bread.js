@@ -11,6 +11,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING(300),
       },
+      tgl_produksi: {
+        type: Sequelize.DATE,
+      },
       result: {
         type: Sequelize.FLOAT,
       },

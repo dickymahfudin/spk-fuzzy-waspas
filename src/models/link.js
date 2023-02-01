@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const moment = require('moment');
 module.exports = (sequelize, DataTypes) => {
   class link extends Model {
     /**
@@ -18,8 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async getAll(where = []) {
+    static async getAll(where = [], date = null) {
       const exclude = ['password', 'createdAt', 'updatedAt'];
+      if (date)
+        date = {
+          tgl_produksi: moment(date),
+        };
       return await this.findAll({
         where,
         include: [
@@ -31,14 +36,17 @@ module.exports = (sequelize, DataTypes) => {
           {
             model: sequelize.models.bread,
             as: 'bread',
+            where: date,
             attributes: { exclude },
           },
         ],
         attributes: { exclude },
-        order: [['id', 'ASC']],
+        order: [['id', 'DESC']],
         // group: ["bread_id"],
       })
-        .then(result => result)
+        .then(result => {
+          return result;
+        })
         .catch(err => {
           console.log(err);
           return err;
