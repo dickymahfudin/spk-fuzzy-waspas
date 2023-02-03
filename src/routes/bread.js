@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
   });
   if (tempLocation) {
     req.flash('error', 'Nama Roti Sudah tersedia');
-    return res.redirect('/bread');
+    return res.redirect(`/bread?date=${data.date}`);
   }
   const location = await bread.create({ name: data.name, tgl_produksi: data.date });
   for (const value of Object.keys(data)) {
@@ -113,7 +113,7 @@ router.get('/form/:id', async (req, res, next) => {
     const find = tempForms.find(asli => asli.kriteria_id == kriteria.id) || '';
     return { ...passkriteria, value: find.value };
   });
-  const tgl = tempForms[0]['bread']['tgl_produksi'].format('YYYY-MM-DD');
+  const tgl = tempForms[0]['bread']['tgl_produksi'];
   return res.render('bread/form', {
     action: `/bread/${id}`,
     forms,

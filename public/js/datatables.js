@@ -11,7 +11,7 @@ $(document).ready(function () {
       if (!dism) {
         if (parsUrl == 'bread') {
           const clm = response.columns;
-          response.columns = [clm[0], clm[1], clm[2], clm[5], clm[4], clm[3]];
+          if (clm[5]) response.columns = [clm[0], clm[1], clm[2], clm[5], clm[4], clm[3]];
         }
         response.columns.push({
           data: 'id',
