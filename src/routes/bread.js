@@ -130,10 +130,10 @@ router.get('/sisa', async (req, res, next) => {
     const locations = await link.getAll([], date);
     const tempData = group(locations, 'bread_id');
     let data = dataFormat(tempData);
-    data = data.find(e => (e.name = name));
+    data = data.find(e => e.name == name);
     let sisa = 101;
     if (data) {
-      sisa = data.Persediaan + data.Pesanan - data.Produksi;
+      sisa = data.Persediaan + data.Produksi - data.Pesanan;
       sisa = sisa < 101 ? sisa + 100 : sisa;
     }
     return res.status(200).json(sisa);
