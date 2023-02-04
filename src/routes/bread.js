@@ -123,4 +123,23 @@ router.get('/form/:id', async (req, res, next) => {
   });
 });
 
+router.get('/sisa', async (req, res, next) => {
+  try {
+    const date = req.query.date;
+    const name = req.query.name;
+    const locations = await link.getAll([], date);
+    const tempData = group(locations, 'bread_id');
+    let data = dataFormat(tempData);
+    data = data.find(e => (e.name = name));
+    let sisa = 101;
+    if (data) {
+      sisa = data.Persediaan + data.Pesanan - data.Produksi;
+      sisa = sisa < 101 ? sisa + 100 : sisa;
+    }
+    return res.status(200).json(sisa);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 module.exports = router;

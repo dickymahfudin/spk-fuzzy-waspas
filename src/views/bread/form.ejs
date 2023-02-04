@@ -38,7 +38,7 @@
         <div class="col-md-12 mb-4">
           <div class="form-group">
             <label>Tanggal</label>
-            <input type="date" name="date" placeholder="dd-mm-yyyy" class="form-control" required value="<%=tgl%>" min="2023-01-23" />
+            <input type="date" name="date" id="date" placeholder="dd-mm-yyyy" class="form-control" required value="<%=tgl%>" min="2023-01-23" />
           </div>
         </div>
 
@@ -64,3 +64,30 @@
     </form>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
+<script>
+  $(document).ready(function () {
+    $('#date').change(function (e) { 
+      e.preventDefault();
+      const name = $('#name').val();
+      const date = moment(e.target.value).subtract(1, "days").format('YYYY-MM-DD'); 
+      console.log(name)
+      console.log(date)
+      if(!name) return notification('error', 'Harap pilih Jenis Roti terlebih dahulu');
+      $.ajax({
+        type: "get",
+        url: "/bread/sisa",
+        data: { date, name },
+        dataType: "json",
+        success: function (response) {
+          $('#Persediaan').val(response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      });
+      
+    });
+  });
+</script>
