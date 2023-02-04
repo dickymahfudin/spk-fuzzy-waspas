@@ -41,7 +41,6 @@ router.get('/hitung', async (req, res, next) => {
     const tempData = group(locations, 'bread_id');
     const datas = dataFormat(tempData);
     const hitungs = hitung(datas, kriterias);
-    // console.log(hitungs);
     if (hitungs.waspas.hasil.length != 0) {
       let dbError = 0;
       hitungs.waspas.hasil.forEach(async db => {
@@ -53,9 +52,7 @@ router.get('/hitung', async (req, res, next) => {
       });
       for (let i = 0; i < hitungs.breads.length; i++) {
         const bread = hitungs.breads[i];
-        // console.log(bread);
-        const temp = await link.findOne({ where: { bread_id: bread.id, kriteria_id: produksiKriteria.id } });
-        await temp.destroy();
+        await link.destroy({ where: { bread_id: bread.id, kriteria_id: produksiKriteria.id } });
         await link.create({
           bread_id: bread.id,
           kriteria_id: produksiKriteria.id,
