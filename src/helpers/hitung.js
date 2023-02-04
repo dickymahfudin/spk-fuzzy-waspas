@@ -38,7 +38,7 @@ const hitung = (breads, kriteria) => {
           rr6 = 200,
           rr7 = 70,
           rr8 = 170,
-          rr9 = 350;
+          rr9 = 399;
 
         const rrr1 = 10,
           rrr2 = 45,

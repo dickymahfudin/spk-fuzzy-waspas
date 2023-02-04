@@ -19,6 +19,8 @@ const dataBeads = [
   { id: 18, name: 'Roti Besar Sosis', Persediaan: 234, Pesanan: 495 },
   { id: 19, name: 'Roti Besar Flower Sausage Bread', Persediaan: 414, Pesanan: 189 },
   { id: 20, name: 'Roti Besar Naugat Kacang', Persediaan: 261, Pesanan: 100 },
+  // { id: 21, name: 'Roti Besar Naugat Kacang', Persediaan: 101, Pesanan: 499 },
+  // { id: 22, name: 'Roti Besar Naugat Kacang', Persediaan: 102, Pesanan: 490 },
 ];
 let dataBeads1 = [
   { id: 1, name: 'Roti Unyil Coklat', Persediaan: 107, Pesanan: 210 },
@@ -89,7 +91,7 @@ const hitung = (breads, kriteria) => {
           rr6 = 200,
           rr7 = 70,
           rr8 = 170,
-          rr9 = 350;
+          rr9 = 399;
 
         const rrr1 = 10,
           rrr2 = 45,
@@ -122,7 +124,7 @@ const hitung = (breads, kriteria) => {
         const z8 = r8 > 0 ? +(rr8 + r8 * rrr8).toFixed(2) : 0;
         const r9 = Math.min(data.persediaan.sedikit, data.pesanan.banyak); //banyak
         const z9 = r9 > 0 ? +(rr9 + r9 * rrr9).toFixed(2) : 0;
-
+        console.log(r9, z9);
         let res1 = 0;
         let res2 = 0;
         for (let i = 1; i < 10; i++) {
@@ -133,6 +135,7 @@ const hitung = (breads, kriteria) => {
         res1 = parseFloat(res1.toFixed(2));
         res2 = parseFloat(res2.toFixed(2));
         const res = Math.round(res1 / res2) || 0;
+        console.log(res1, res2, res);
 
         return { id, name, r1, z1, r2, z2, r3, z3, r4, z4, r5, z5, r6, z6, r7, z7, r8, z8, r9, z9, res1, res2, res };
       });
@@ -206,6 +209,7 @@ const hitung = (breads, kriteria) => {
     const matrix2 = newMatrix2.map(matrix => {
       return matrix.join('&');
     });
+    console.log(matrix2);
     const hasil = newMatrixQ.map((matrix, i) => {
       const lokasi = datas[i];
       const q1 = +(0.5 * matrix.map(e => e.q1).reduce(reducer)).toFixed(2);
@@ -226,33 +230,24 @@ const hitung = (breads, kriteria) => {
     const Produksi = hasilFuzzi.defuzzyfikasi.find(def => def.id == el.id).res;
     return { ...el, Produksi };
   });
+  // console.table(breads);
   const hasilWaspas = waspas(breads);
+  // console.log(hasilWaspas.hasil)
+  breads = hasilWaspas.hasil.map(el => {
+    const find = breads.find(def => def.id == el.id);
+    // console.log(find)
+    return {
+      name: find.name,
+      Persediaan: find.Persediaan,
+      Pesanan: find.Pesanan,
+      Produksi: find.Produksi,
+      q: el.q,
+    };
+  });
+  console.log(breads);
   return { fuzzy: hasilFuzzi, waspas: hasilWaspas, breads };
 };
 
 const a = hitung(dataBeads, dataKriteria);
-// const b = hitung(dataBeads1, dataKriteria);
-// console.log(hitung(dataBeads, dataKriteria));
-const a1 = new Date();
-const dateFormat = x => {
-  const d = new Date(x);
-  const months = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
-    4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'December',
-  };
-  const year = d.getFullYear(); // 2019
-  const date = d.getDate(); // 23
-  const monthName = months[d.getMonth()];
-  return `${date} ${monthName} ${year}`;
-};
-console.log(dateFormat('2023-01-23'));
+// const a1 = hitung(dataBeads1, dataKriteria);
+// console.log(a);
