@@ -87,6 +87,7 @@
       <%perhitungan.matrix.forEach((matrix,j)=>{ %>
       <div class="col-md-3 col-sm-12">
         \[A_{<%=j+1%><%=i+1%>} = {<%=matrix%> \over <%=perhitungan.sumbuX%>}= <%=perhitungan.normalisasi[j]%>\]
+        <!-- A<%=j+1%>.<%=i+1%> = <%=matrix%>/<%=perhitungan.sumbuX%> = <%=perhitungan.normalisasi[j]%> -->
       </div>
       <% })%>
     </div>
@@ -102,6 +103,7 @@
     <div class="row">
       <% waspas.hasil.forEach((hasil,i) => { %>
       <div class="col col-md-3">\[Q<%=i+1%>= <%= hasil.q1%> + <%= hasil.q2%> =<%= hasil.q%> \]</div>
+      <!-- <div class="col col-md-6">Q<%=i+1%> = <%= hasil.q1%> + <%= hasil.q2%> = <%= hasil.q%></div> -->
       <%}) %>
     </div>
 

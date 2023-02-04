@@ -124,7 +124,7 @@ const hitung = (breads, kriteria) => {
         const z8 = r8 > 0 ? +(rr8 + r8 * rrr8).toFixed(2) : 0;
         const r9 = Math.min(data.persediaan.sedikit, data.pesanan.banyak); //banyak
         const z9 = r9 > 0 ? +(rr9 + r9 * rrr9).toFixed(2) : 0;
-        console.log(r9, z9);
+        // console.log(r9, z9);
         let res1 = 0;
         let res2 = 0;
         for (let i = 1; i < 10; i++) {
@@ -135,7 +135,7 @@ const hitung = (breads, kriteria) => {
         res1 = parseFloat(res1.toFixed(2));
         res2 = parseFloat(res2.toFixed(2));
         const res = Math.round(res1 / res2) || 0;
-        console.log(res1, res2, res);
+        // console.log(res1, res2, res);
 
         return { id, name, r1, z1, r2, z2, r3, z3, r4, z4, r5, z5, r6, z6, r7, z7, r8, z8, r9, z9, res1, res2, res };
       });
@@ -235,19 +235,29 @@ const hitung = (breads, kriteria) => {
   // console.log(hasilWaspas.hasil)
   breads = hasilWaspas.hasil.map(el => {
     const find = breads.find(def => def.id == el.id);
-    // console.log(find)
+    let sisa = find.Persediaan + find.Produksi - find.Pesanan;
+    sisa = sisa < 101 ? sisa + 100 : sisa;
     return {
       name: find.name,
       Persediaan: find.Persediaan,
       Pesanan: find.Pesanan,
       Produksi: find.Produksi,
       q: el.q,
+      sisa,
     };
   });
-  console.log(breads);
+  const dataLaporan = breads.map(el => ({ name: el.name, result: el.q }));
+  const link = breads.map(el => [el.Persediaan, el.Pesanan, el.Produksi]);
+  // console.table(breads);
+  // console.log(dataLaporan);
+  // console.log(link);
   return { fuzzy: hasilFuzzi, waspas: hasilWaspas, breads };
 };
 
 const a = hitung(dataBeads, dataKriteria);
-// const a1 = hitung(dataBeads1, dataKriteria);
+dataBeads1 = dataBeads1.map(el => {
+  const find = a.breads.find(e => e.name == el.name);
+  return { ...el, Persediaan: find.sisa };
+});
+const a1 = hitung(dataBeads1, dataKriteria);
 // console.log(a);
