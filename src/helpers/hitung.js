@@ -32,7 +32,7 @@ const hitung = (breads, kriteria) => {
         const name = data.name;
         const rr1 = 10,
           rr2 = 10,
-          rr3 = 70,
+          rr3 = 100,
           rr4 = 10,
           rr5 = 50,
           rr6 = 200,

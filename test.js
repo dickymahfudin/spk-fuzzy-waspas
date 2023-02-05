@@ -19,30 +19,31 @@ const dataBeads = [
   { id: 18, name: 'Roti Besar Sosis', Persediaan: 234, Pesanan: 495 },
   { id: 19, name: 'Roti Besar Flower Sausage Bread', Persediaan: 414, Pesanan: 189 },
   { id: 20, name: 'Roti Besar Naugat Kacang', Persediaan: 261, Pesanan: 100 },
-  // { id: 21, name: 'Roti Besar Naugat Kacang', Persediaan: 101, Pesanan: 499 },
+  { id: 21, name: 'Roti Besar Naugat Kacang', Persediaan: 127, Pesanan: 200 },
+  { id: 22, name: 'Roti Besar Naugat Kacang', Persediaan: 101, Pesanan: 200 },
   // { id: 22, name: 'Roti Besar Naugat Kacang', Persediaan: 102, Pesanan: 490 },
 ];
 let dataBeads1 = [
-  { id: 1, name: 'Roti Unyil Coklat', Persediaan: 107, Pesanan: 210 },
-  { id: 2, name: 'Roti Unyil Keju', Persediaan: 116, Pesanan: 140 },
-  { id: 3, name: 'Roti Unyil Cokelat Keju', Persediaan: 166, Pesanan: 122 },
-  { id: 4, name: 'Roti Unyil Jagung Manis', Persediaan: 138, Pesanan: 148 },
-  { id: 5, name: 'Roti Unyil Oreo', Persediaan: 116, Pesanan: 340 },
-  { id: 6, name: 'Roti Unyil Durian', Persediaan: 120, Pesanan: 300 },
-  { id: 7, name: 'Roti Unyil Pisang Cokelat', Persediaan: 161, Pesanan: 250 },
-  { id: 8, name: 'Roti Unyil Pisang Keju', Persediaan: 169, Pesanan: 110 },
-  { id: 9, name: 'Roti Unyil Sosis', Persediaan: 138, Pesanan: 431 },
-  { id: 10, name: 'Roti Unyil Abon', Persediaan: 146, Pesanan: 234 },
-  { id: 11, name: 'Roti Unyil Cream Cheese', Persediaan: 190, Pesanan: 179 },
-  { id: 12, name: 'Roti Unyil Daging Asap', Persediaan: 105, Pesanan: 220 },
-  { id: 13, name: 'Roti Unyil Mocca Cokelat', Persediaan: 116, Pesanan: 410 },
-  { id: 14, name: 'Roti Besar Korean Garlic', Persediaan: 200, Pesanan: 230 },
-  { id: 15, name: 'Roti Besar Coffee Bun', Persediaan: 193, Pesanan: 300 },
-  { id: 16, name: 'Roti Besar Abon', Persediaan: 115, Pesanan: 320 },
-  { id: 17, name: 'Roti Besar Cream Cheese', Persediaan: 109, Pesanan: 220 },
-  { id: 18, name: 'Roti Besar Sosis', Persediaan: 103, Pesanan: 345 },
-  { id: 19, name: 'Roti Besar Flower Sausage Bread', Persediaan: 226, Pesanan: 243 },
-  { id: 20, name: 'Roti Besar Naugat Kacang', Persediaan: 161, Pesanan: 240 },
+  { id: 1, name: 'Roti Unyil Coklat', Pesanan: 210 },
+  { id: 2, name: 'Roti Unyil Keju', Pesanan: 140 },
+  { id: 3, name: 'Roti Unyil Cokelat Keju', Pesanan: 122 },
+  { id: 4, name: 'Roti Unyil Jagung Manis', Pesanan: 148 },
+  { id: 5, name: 'Roti Unyil Oreo', Pesanan: 340 },
+  { id: 6, name: 'Roti Unyil Durian', Pesanan: 300 },
+  { id: 7, name: 'Roti Unyil Pisang Cokelat', Pesanan: 250 },
+  { id: 8, name: 'Roti Unyil Pisang Keju', Pesanan: 110 },
+  { id: 9, name: 'Roti Unyil Sosis', Pesanan: 431 },
+  { id: 10, name: 'Roti Unyil Abon', Pesanan: 234 },
+  { id: 11, name: 'Roti Unyil Cream Cheese', Pesanan: 179 },
+  { id: 12, name: 'Roti Unyil Daging Asap', Pesanan: 220 },
+  { id: 13, name: 'Roti Unyil Mocca Cokelat', Pesanan: 410 },
+  { id: 14, name: 'Roti Besar Korean Garlic', Pesanan: 230 },
+  { id: 15, name: 'Roti Besar Coffee Bun', Pesanan: 300 },
+  { id: 16, name: 'Roti Besar Abon', Pesanan: 320 },
+  { id: 17, name: 'Roti Besar Cream Cheese', Pesanan: 220 },
+  { id: 18, name: 'Roti Besar Sosis', Pesanan: 345 },
+  { id: 19, name: 'Roti Besar Flower Sausage Bread', Pesanan: 243 },
+  { id: 20, name: 'Roti Besar Naugat Kacang', Pesanan: 240 },
 ];
 
 const dataKriteria = [
@@ -66,18 +67,24 @@ const hitung = (breads, kriteria) => {
       else if (x <= sumbu0 || x >= sumbu2) return 0;
       else if (x == sumbu1) return 1;
     };
+    // =IF(AND(D13>=$H$1;D13<=$H$2);((D13-$H$1)/($H$2-$H$1));IF(AND(D13>=$H$2;D13<=$H$3);(($H$3-D13)/($H$3-$H$2));IF(OR(D13<=$H$1;D13>=$H$3);0;1)))
+
     const sedang = x => {
       if (x >= sumbu1 && x <= sumbu2) return +((x - sumbu1) / (sumbu2 - sumbu1)).toFixed(2);
       else if (x >= sumbu2 && x <= sumbu3) return +((sumbu3 - x) / (sumbu3 - sumbu2)).toFixed(2);
       else if (x <= sumbu1 || x >= sumbu3) return 0;
       else if (x == sumbu2) return 1;
     };
+    // =IF(AND(D13>=$H$2;D13<=$H$3);((D13-$H$2)/($H$3-$H$2));IF(AND(D13>=$H$3;D13<=$H$4);(($H$4-D13)/($H$4-$H$3));IF(OR(D13<=$H$2;D13>=$H$4);0;1)))
+
     const banyak = x => {
       if (x >= sumbu2 && x <= sumbu3) return +((x - sumbu2) / (sumbu3 - sumbu2)).toFixed(2);
       else if (x >= sumbu3 && x <= sumbu4) return +((sumbu4 - x) / (sumbu4 - sumbu3)).toFixed(2);
-      else if (x <= sumbu2 || x >= sumbu3) return 0;
+      else if (x <= sumbu2 || x >= sumbu4) return 0;
       else if (x == sumbu3) return 1;
     };
+
+    // =IF(AND(D13>=$H$3;D13<=$H$4);((D13-$H$3)/($H$4-$H$3));IF(AND(D13>=$H$4;D13<=$H$5);(($H$5-D13)/($H$5-$H$4));IF(OR(D13<=$H$3;D13>=$H$4);0;1)))
 
     const defuzzyfikasi = datas => {
       return datas.map(data => {
@@ -85,7 +92,7 @@ const hitung = (breads, kriteria) => {
         const name = data.name;
         const rr1 = 10,
           rr2 = 10,
-          rr3 = 70,
+          rr3 = 100,
           rr4 = 10,
           rr5 = 50,
           rr6 = 200,
@@ -124,7 +131,7 @@ const hitung = (breads, kriteria) => {
         const z8 = r8 > 0 ? +(rr8 + r8 * rrr8).toFixed(2) : 0;
         const r9 = Math.min(data.persediaan.sedikit, data.pesanan.banyak); //banyak
         const z9 = r9 > 0 ? +(rr9 + r9 * rrr9).toFixed(2) : 0;
-        // console.log(r9, z9);
+
         let res1 = 0;
         let res2 = 0;
         for (let i = 1; i < 10; i++) {
@@ -209,7 +216,7 @@ const hitung = (breads, kriteria) => {
     const matrix2 = newMatrix2.map(matrix => {
       return matrix.join('&');
     });
-    console.log(matrix2);
+    // console.log(matrix2);
     const hasil = newMatrixQ.map((matrix, i) => {
       const lokasi = datas[i];
       const q1 = +(0.5 * matrix.map(e => e.q1).reduce(reducer)).toFixed(2);
@@ -217,7 +224,7 @@ const hitung = (breads, kriteria) => {
       const q = +(q1 + q2).toFixed(2);
       return { id: lokasi.id, name: lokasi.name, q1, q2, q };
     });
-    hasil.sort((a, b) => b.q - a.q);
+    // hasil.sort((a, b) => b.q - a.q);
     return {
       matrix1: matrix1.join('\\\\'),
       matrix2: matrix2.join('\\\\'),
@@ -230,7 +237,7 @@ const hitung = (breads, kriteria) => {
     const Produksi = hasilFuzzi.defuzzyfikasi.find(def => def.id == el.id).res;
     return { ...el, Produksi };
   });
-  // console.table(breads);
+
   const hasilWaspas = waspas(breads);
   // console.log(hasilWaspas.hasil)
   breads = hasilWaspas.hasil.map(el => {
@@ -249,8 +256,8 @@ const hitung = (breads, kriteria) => {
   const dataLaporan = breads.map(el => ({ name: el.name, result: el.q }));
   const link = breads.map(el => [el.Persediaan, el.Pesanan, el.Produksi]);
   // console.table(breads);
-  // console.log(dataLaporan);
-  // console.log(link);
+  console.log(dataLaporan);
+  console.log(link);
   return { fuzzy: hasilFuzzi, waspas: hasilWaspas, breads };
 };
 
